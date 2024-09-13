@@ -1,27 +1,53 @@
-import datetime
+import json
 import re
-
-dishes = []
+import datetime
 
 class Dish:
-    def __init__(self, name: str, cook_time: str, price: float) -> None:
+    def __init__(self, name: str, cook_time: datetime.time, price: float) -> None:
         self.name: str = name
-        self.cook_time: str = cook_time
+        self.cook_time: datetime.time = cook_time
         self.price: float = price
+
+
+    def read(txt_file: str) -> list:
+        result = []
+
+        with open(txt_file, "r") as file:
+            lines = file.readlines()
+            for line in lines:
+
+                cook_time = re.findall("(?i)(\d?\d:\d\d)", line)[0]
+                price = float(re.findall("\d+\.\d+", line)[0])
+                name = re.findall('"(.+?)"', line)[0]
+
+                new_dish = Dish(name, cook_time, price)
+                result.append(new_dish)
         
+        return result
+    
 
-with open("test_data.txt", "r") as file:
-    data = file.readlines()
-    for dish in data:
+    def serialize(dishes, output = None):
+        to_dump = []
 
-        cook_time = re.findall("(?i)(\d?\d:\d\d)", dish)
-        price = re.findall("\d+\.\d+", dish)
-        name = re.findall('"(.+?)"', dish)
+        for dish in dishes:
+            to_dump.append({
+                "name": dish.name,
+                "cook_time": dish.cook_time,
+                "price": dish.price
+            })
 
-        new_dish = Dish(name[0], cook_time[0], float(price[0]))
-        dishes.append(new_dish)
+        if output:
+            with open(output, "w") as file:
+                json.dump(to_dump, file)
+                return
+            
+        return json.dumps(to_dump)
+    
+    
+    def show(dishes):
+        for dish in dishes:
+            print(dish.name + ' ' + dish.cook_time + ' ' + str(dish.price))
 
-
-print("Менюшечка:\n")
-for dish in dishes:
-    print(dish.name + ' ' + str(dish.price) + ' ' + dish.cook_time)
+data = Dish.read("test_data.txt")
+Dish.serialize(data, "eedeeded.json")
+Dish.show(data)
