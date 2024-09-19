@@ -24,7 +24,7 @@ class Dish:
                 result.append(new_dish)
         
         return result
-    
+
 
     def serialize(dishes: list, output = None):
         to_dump = []
@@ -53,7 +53,7 @@ class Dish:
 
     def sort_by_price(dishes):
         return sorted(dishes, key=lambda dish: dish.price)
-    
+
 
     def show(dishes: list) -> None:
         for dish in dishes:
