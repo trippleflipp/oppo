@@ -2,6 +2,8 @@ import json
 import re
 import datetime
 
+import sorting
+
 class Dish:
     def __init__(self, name: str, cook_time: datetime.time, price: float) -> None:
         self.name: str = name
@@ -26,7 +28,7 @@ class Dish:
         return result
     
 
-    def serialize(dishes, output = None):
+    def serialize(dishes: list, output = None):
         to_dump = []
 
         for dish in dishes:
@@ -40,14 +42,21 @@ class Dish:
             with open(output, "w") as file:
                 json.dump(to_dump, file)
                 return
-            
         return json.dumps(to_dump)
     
+
+    def name_sort(dishes: list) -> list:
+        return sorting.name_sort(dishes)
     
-    def show(dishes):
+
+    def price_sort(dishes: list) -> list:
+        return sorting.price_sort(dishes)
+    
+
+    def cook_time_sort(dishes: list) -> list:
+        return sorting.cook_time_sort(dishes)
+    
+    
+    def show(dishes: list) -> None:
         for dish in dishes:
             print(dish.name + ' ' + dish.cook_time + ' ' + str(dish.price))
-
-data = Dish.read("test_data.txt")
-Dish.serialize(data, "eedeeded.json")
-Dish.show(data)
