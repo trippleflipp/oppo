@@ -57,6 +57,17 @@ class Dish:
         return sorting.cook_time_sort(dishes)
     
     
+    def sort_by_name(dishes):
+        return sorted(dishes, key=lambda dish: dish.name)
+
+      
+    def sort_by_cook_time(dishes):
+        return sorted(dishes, key=lambda dish: dish.cook_time)
+
+
+    def sort_by_price(dishes):
+        return sorted(dishes, key=lambda dish: dish.price)
+      
     def show(dishes: list) -> None:
-        for dish in dishes:
-            print(dish.name + ' ' + dish.cook_time + ' ' + str(dish.price))
+      for dish in dishes:
+          print(dish.name + ' ' + dish.cook_time + ' ' + str(dish.price))
