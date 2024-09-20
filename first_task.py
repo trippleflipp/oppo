@@ -2,8 +2,6 @@ import json
 import re
 import datetime
 
-import sorting
-
 class Dish:
     def __init__(self, name: str, cook_time: datetime.time, price: float) -> None:
         self.name: str = name
