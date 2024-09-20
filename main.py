@@ -1,5 +1,6 @@
 from first_task import Dish
 
+
 print('\nParsed data:')
 data = Dish.read("test_data.txt")
 Dish.serialize(data, "eedeeded.json")
