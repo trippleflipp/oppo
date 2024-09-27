@@ -9,7 +9,7 @@ def test_dish_price_read():
     assert read_price('"Pelmeni" 00:30 22') == 22.0
 
 def test_dish_cook_time_read():
-    assert read_cook_time('3.3 "Pizza" 2:4') == "02:40"
+    assert read_cook_time('3.3 "Pizza" 2:4') == "02:04"
 
 def test_data_read():
     read(txt_file="test_data.txt")
